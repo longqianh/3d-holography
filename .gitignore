@@ -1,4 +1,7 @@
 
-*.txt
+
 *.jpg
 *.ply
+
+datas/Cactus.txt
+datas/Block.txt
