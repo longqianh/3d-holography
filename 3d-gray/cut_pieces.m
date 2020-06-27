@@ -1,7 +1,9 @@
-clear;close;clc;
-slices=100; % number of slices
-cut=zeros(slices,1);
-pictures=cell(slices);
+% input:number of slices n
+% cut pieces and return n
+
+function cut_pieces(n)
+slices=n; % number of slices
+
 % model=pcread('.datas/x-wing.ply');
 model = load('./datas/bunny.txt');
 %sort by z coordinate
@@ -15,7 +17,7 @@ num=size(X,1);
 % adjust z coordinate
 min_z=min(ver(:,3));
 ver(:,3)=ver(:,3)-min_z;
-
+% depth=ver(end,3)*1000;
 % get z-range of one slice per layer
 ver1=ver(1:floor(num/slices):num,:);
 z1=ver1(:,3);
@@ -44,4 +46,4 @@ for i = 1:length(z1)
     imwrite(f, ['./tmp/' num2str(i) '.jpg']);    
     
 end
-
+end
