@@ -5,7 +5,7 @@ function cut_pieces(n)
 slices=n; % number of slices
 
 % model=pcread('.datas/x-wing.ply');
-model = load('./datas/bunny.txt');
+model = load('../datas/bunny.txt');
 %sort by z coordinate
 % ver=sortrows(model.Location,3);
 ver=sortrows(model,3);
@@ -43,7 +43,7 @@ for i = 1:length(z1)
     f = getframe(gca);
     f = frame2im(f); 
     f = rgb2gray(f);
-    imwrite(f, ['./tmp/' num2str(i) '.jpg']);    
+    imwrite(f, ['../tmp/' num2str(i) '.jpg']);    
     
 end
 end
