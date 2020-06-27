@@ -10,7 +10,6 @@
 % ### output
 % U: complex amplitudes on the observation screen after s-fft
 
-
 function U=s_fft(M,N,lambda,z,xx0,yy0,xx,yy,U0)
 k=2*pi/lambda;
 Fresnel=exp(1i*k/2/z*(xx0.^2+yy0.^2));
