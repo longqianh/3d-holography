@@ -1,7 +1,4 @@
 % 3d colorful holography
-% parameters
-
-
 
 % load data and divide into 3 channels
 modelpath='../datas/bunny.txt';
@@ -10,11 +7,8 @@ rgbmodel=gray2color(model);
 
 % calculate 3d holography for each channel
 r_phasegraph=calculate_single_color(rgbmodel,1);
-
-
-
-% g_phasegraph=gray3d(rgbmodel,2);
-% b_phasegraph=gray3d(rgbmodel,3);
+% g_phasegraph=calculate_single_color(rgbmodel,2);
+% b_phasegraph=calculate_single_color(rgbmodel,3);
 % 
 % % combine the RGB components together
 % RGB_phasegraph=R_phasegraph+G_phasegraph+B_phasegraph;
