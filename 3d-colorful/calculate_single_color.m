@@ -61,23 +61,32 @@ end
 
 U_slms=cell(slices,1);
 U_pics=cell(slices,1);
-iter_num=20;
+iter_num=4;
+
 for iter=1:iter_num  % GS iteration 
+    if iter>1
+        abs(U_slm(1,1:10))
+    end
     U_slm=zeros(N,M);
     for i=1:slices
         U_slms{i}=s_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
         U_slm=U_slm+U_slms{i};% complex applitudes superposition       
     end
+    if iter==iter_num
+        PhaseGraph=uint8(angle(U_slm)/2/pi*255);
+        imwrite(PhaseGraph,['phase-only-img' ,'ch',num2str(channel), '.bmp'] );
+    end
     
+    phase=angle(U_slm);
     for i=1:slices
-        U_pics{i}=i_fft(angle(U_slm),M,N,lambda,z(i),xx0,yy0,xx,yy); % z(i) takes depth into account
+        U_pics{i}=i_fft(exp(1i.*phase),M,N,lambda,z(i),xx0,yy0,xx,yy); % z(i) takes depth into account
         U0{i}=A0{i}.*exp(1i*angle(U_pics{i}));
     end
     disp(iter*i/(iter_num*slices)); % running progress 
 end
 
-PhaseGraph=uint8(angle(U_slm)/2/pi*255);
-imwrite(PhaseGraph,'phase-only-img.bmp');%../holo-graph/holo-graph
+% PhaseGraph=uint8(angle(U_slm)/2/pi*255);
+%../holo-graph/holo-graph
 % [filename,folder] = uiputfile('*.bmp','save graph','holo-graph.bmp');
 
 simu=1;
@@ -85,13 +94,13 @@ simu=1;
 if simu==1
     B=3; % intensity factor
     pic_num=1; %
-    res=B*abs(U_pics{pic-num})/max(max(abs(U_pics{pic_num}))); 
+    res=B*abs(U_pics{pic_num})/max(max(abs(U_pics{pic_num}))); 
     res=imresize(res,[1000 1000]);
     figure;
     imshow(res);
 end
 
+% clear;clc;clf;
 
 
-
- end
+end
