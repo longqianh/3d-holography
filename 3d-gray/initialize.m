@@ -1,18 +1,16 @@
 function [U0,A0,xx0,yy0,xx,yy]=initialize(XY0,M,N,m0,lambda,z0,pix)
-% ### input
+%  input
 % z0 : diffraction distance
 % lambda: wavelength
 % M,N: number of pixels in width and length on slm 
 % m0: zoom factor
 % pix: length of the pixel unit on slm
 % XY0: complex amplituds on slm
-% ## output
+%  output
 % xx0,yy0: pixel points on the diffraction plane 
 % xx,yy: pixel points on the observation plane
 
 
-LM = M*pix; 
-LN = N*pix;
 n = 1:N;
 m = 1:M;
 dx0=pix;
@@ -21,14 +19,10 @@ dx=lambda*z0/(M*pix);
 dy=lambda*z0/(N*pix);
 
 x0 = ((m-1)/m-0.5)*dx0;
-y0 = ((n-1)/n-0.5))*dy0;
+y0 = ((n-1)/n-0.5)*dy0;
 x = ((m-1)/m-0.5)*dx;
-y = ((n-1)/n-0.5))*dy;
+y = ((n-1)/n-0.5)*dy;
 
-
-%(m-1)/M*L0-L0/2; 
-% y = (n-1)/N*L0-L0/2;
-% x = (m-1)/M*LM-LM/2;  
 
 [xx0,yy0] = meshgrid(x0,y0);
 [xx,yy] = meshgrid(x,y);
