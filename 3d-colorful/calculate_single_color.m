@@ -3,7 +3,7 @@ function PhaseGraph = calculate_single_color(rgbmodel,channel)
 % parameters
 M = 1920; N = 1080; % slm resolution: horizontal and vertical pixels
 slices=100; % number of slices
-m0 = 0.5 ;  % image zoom factor: to prevent image superposition
+% m0 = 0.5 ;  % image zoom factor: to prevent image superposition
 z0 = 800;  %distance between the defracted plane and observation screen
 depth=30;  % depth 
 pix=0.008;  % unit pixel width
