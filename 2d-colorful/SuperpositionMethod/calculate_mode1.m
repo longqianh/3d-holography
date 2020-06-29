@@ -1,10 +1,9 @@
-function [picture6,picture5]=calculate_mode1(LambdaChoose,Lambda,XRGB,dist,f,random_phase,iter_num,spherical_phase,biphase)
-%----------------------------------------calculatemode1--------------------------------------%
+function [pic3,pic4]=calculate_mode1(LambdaChoose,Lambda,XRGB,z0,f,random_phase,iter_num,spherical_phase,biphase)
+
 blaze = 1;
+
 m00=0.8;
-%--------------参数传递-----------------%
-z0 = dist;
-z2 = z0-f;    % f : focal length
+
 channels=LambdaChoose{1}+LambdaChoose{2}+LambdaChoose{3};
 
 
@@ -39,20 +38,21 @@ for j=1:3 %for each channel
    if LambdaChoose{j}  
     lambda = Lambda{j}*1e-6;     
     L0 = lambda*z0/pix; %采样定理计算最大像平面大小
+    % 修改补零：z0->z(i)
     
     x0 = (m-1)/M*L0-L0/2;   
     y0 = (n-1)/N*L0-L0/2;
     [xx0,yy0] = meshgrid(x0,y0); 
     
     %Lmax=min([L0,z2/f*LN]);
-    Lmax=min([L0,0.4*1e-3*z0/pix]); % ??
+    Lmax=0.4*1e-3*z0/pix; % 目标像面的大小
    
     % if use Biphase Encoding method
     if biphase 
         m00=0.5;
     end
     
-    m0=m00*Lmax/L0;
+    m0=m00*Lmax/L0;% 还想再小一点 
     
     % zooming and zero-padding
     Xcolor{j}=imresize(Xcolor{j},m0);
@@ -72,6 +72,7 @@ for j=1:3 %for each channel
   
     % Spherical Phase Encoding method
     if spherical_phase  
+        z2 = z0-f;    % f : focal length
         sphr_phase = -pi*(xx0.^2 + yy0.^2)/(lambda*z2); 
         U0=U0.*exp(1i.*sphr_phase); 
     end
@@ -87,7 +88,7 @@ for j=1:3 %for each channel
         Uffinale=Uf;
         Phase=angle(Uf)+pi;
         Ih=Phase;        
-        %----SFFT----%
+        %---iFFT----%
         U0=exp(1i*Phase-pi);
         Fresnel=exp(-1i*k/2/z0*(xx.^2+yy.^2));
         f2=U0.*Fresnel;
@@ -179,19 +180,19 @@ for j=1:3 %for each channel
 end
 
 if channels==3
-picture6=[phasepic{1},phasepic{2},phasepic{3}];
+pic3=[phasepic{1},phasepic{2},phasepic{3}];
 end
 if channels==2
     for i=1:3
         if ~LambdaChoose{i}
             if i==1
-                picture6=[phasepic{2},phasepic{3}];
+                pic3=[phasepic{2},phasepic{3}];
             end
             if i==2
-                picture6=[phasepic{1},phasepic{3}];
+                pic3=[phasepic{1},phasepic{3}];
             end
             if i==3
-                picture6=[phasepic{1},phasepic{2}];
+                pic3=[phasepic{1},phasepic{2}];
             end
         end
     end
@@ -199,12 +200,12 @@ end
 if channels==1
     for i=1:3
         if LambdaChoose{i}
-            picture6=phasepic{i};
+            pic3=phasepic{i};
         end
     end
 end
-picture5=cat(3,returnpic{1},returnpic{2},returnpic{3});
-picture5=imresize(picture5,[1000,1000]);
+pic4=cat(3,returnpic{1},returnpic{2},returnpic{3});
+pic4=imresize(pic4,[1000,1000]);
 %----------------------------------------calculatemode1--------------------------------------%
 % filepath=pwd;           %保存当前工作目录
 % cd('C:\');          %把当前工作目录切换到指定文件夹
