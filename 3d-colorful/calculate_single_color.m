@@ -62,7 +62,7 @@ end
 U_slms=cell(slices,1);
 U_pics=cell(slices,1);
 iter_num=20;
-for iter=1:iter_num+1  % GS iteration 
+for iter=1:iter_num  % GS iteration 
     U_slm=zeros(N,M);
     for i=1:slices
         U_slms{i}=s_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
@@ -76,7 +76,7 @@ for iter=1:iter_num+1  % GS iteration
     disp(iter*i/(iter_num*slices)); % running progress 
 end
 
-PhaseGraph=uint8(U_slm/2/pi*255);
+PhaseGraph=uint8(angle(U_slm)/2/pi*255);
 imwrite(PhaseGraph,'phase-only-img.bmp');%../holo-graph/holo-graph
 % [filename,folder] = uiputfile('*.bmp','save graph','holo-graph.bmp');
 
