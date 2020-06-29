@@ -61,7 +61,7 @@ end
 
 U_slms=cell(slices,1);
 U_pics=cell(slices,1);
-iter_num=4;
+iter_num=20;
 
 for iter=1:iter_num  % GS iteration 
     if iter>1
@@ -74,7 +74,7 @@ for iter=1:iter_num  % GS iteration
     end
     if iter==iter_num
         PhaseGraph=uint8(angle(U_slm)/2/pi*255);
-        imwrite(PhaseGraph,['phase-only-img' ,'ch',num2str(channel), '.bmp'] );
+        imwrite(PhaseGraph,['phase-only-img-c' ,' ch',num2str(channel), '.bmp'] );
     end
     
     phase=angle(U_slm);

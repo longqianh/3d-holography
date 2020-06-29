@@ -30,9 +30,9 @@ function cut_pieces(model,slices)
             % RGB image with three channels equal is grayscale
             % RGB2GRAY fomula : I =  0.2989 * R + 0.5870 * G + 0.1140 * B
             c=repmat(xy(:,3),1,3);
-            c(:,1)=c(:,1)/0.2989;
-            c(:,2)=c(:,2)/0.5870;
-            c(:,3)=c(:,3)/0.1140;
+%             c(:,1)=c(:,1)/0.2989;
+%             c(:,2)=c(:,2)/0.5870;
+%             c(:,3)=c(:,3)/0.1140;
 
             scatter(xy(:,1),xy(:,2),50,c,'.');
             axis equal;
