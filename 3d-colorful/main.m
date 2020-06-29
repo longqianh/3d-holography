@@ -12,6 +12,9 @@ b_phasegraph=calculate_single_color(rgbmodel,3);
 
 % combine the RGB components together
 RGB_phasegraph1=r_phasegraph+g_phasegraph+b_phasegraph;
-RGB_phasegraph2=r_phasegraph(:,1:M/3)+g_phasegraph(:,M/3:M/3*2)+b_phasegraph(:,M/3*2:M);
-imwrite(RGB_phasegraph1,['phase-only-img' ,' superposition ', '.bmp'] );
-imwrite(RGB_phasegraph2,['phase-only-img' ,' spacedividing ', '.bmp'] );
+M=1920;
+RGB_phasegraph2(:,1:M/3)=r_phasegraph(:,1:M/3);
+RGB_phasegraph2(:,M/3+1:M/3*2)=g_phasegraph(:,M/3+1:M/3*2);
+RGB_phasegraph2(:,M/3*2+1:M)=b_phasegraph(:,M/3*2+1:M);
+imwrite(RGB_phasegraph1,['phase-only-img-i-s' ,' superposition ', '.bmp'] );
+imwrite(RGB_phasegraph2,['phase-only-img-i-s' ,' spacedividing ', '.bmp'] );
