@@ -1,5 +1,5 @@
 
-function [picture6,picture5] = calculate_mode2(XRGB,lambda,dist,suiji,shuangxiangwei)
+function [pic3,pic4] = calculate_mode2(XRGB,lambda,dist,rd_phase,shuangxiangwei)
 
 XR = XRGB(:,:,1);
 XG = XRGB(:,:,2);
@@ -205,10 +205,10 @@ Ug1=UGf((401-dL):(401+dL),(401-dL):(401+dL));Ug1=Ug1/max(max(Ug1));
 Ub1=UBf((401-dL):(401+dL),(401-dL):(401+dL));Ub1=Ub1/max(max(Ub1));
 Uf=cat(3,Ur1,Ug1,Ub1);
 Uffinale=imresize(Uf,[1000,1000]);
-picture5=Uffinale;
+pic4=Uffinale;
 %----------sfft模拟还原结束----------%
 
-picture6=Ih{4};
+pic3=Ih{4};
 % 存相息图
 % [filename,folder] = uiputfile('*.bmp','储存相息图','lenna_DPH.bmp');
 % imwrite(Ih{2},[folder,filename]);

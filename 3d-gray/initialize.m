@@ -1,4 +1,32 @@
 function [U0,A0,xx0,yy0,xx,yy]=initialize(XY0,M,N,m0,lambda,z0,pix)
+%  input
+% z0 : diffraction distance
+% lambda: wavelength
+% M,N: number of pixels in width and length on slm 
+% m0: zoom factor
+% pix: length of the pixel unit on slm
+% XY0: complex amplituds on slm
+%  output
+% xx0,yy0: pixel points on the diffraction plane 
+% xx,yy: pixel points on the observation plane
+
+
+n = 1:N;
+m = 1:M;
+dx0=pix;
+dy0=pix;
+dx=lambda*z0/(M*pix);
+dy=lambda*z0/(N*pix);
+
+x0 = ((m-1)/m-0.5)*dx0;
+y0 = ((n-1)/n-0.5)*dy0;
+x = ((m-1)/m-0.5)*dx;
+y = ((n-1)/n-0.5)*dy;
+
+
+[xx0,yy0] = meshgrid(x0,y0);
+[xx,yy] = meshgrid(x,y);
+
 pictures=size(XY0,1); % number of pieces
 U0=cell(pictures,1); % contain complex amplitudes of each piece
 A0=cell(size(U0));
@@ -14,16 +42,4 @@ for i=1:pictures
     A0{i}=abs(U0{i});  %inital complex amplitudes for later iterations
 end
 
-LM = M*pix;
-LN = N*pix;
-L0=lambda*z0/pix;
-n = 1:N;
-m = 1:M;
-% make x0,y0 centrosymmetric
-x0 = (m-1)/M*L0-L0/2; 
-y0 = (n-1)/N*L0-L0/2;
-x = (m-1)/M*LM-LM/2; 
-y = (n-1)/N*LN-LN/2;
-[xx0,yy0] = meshgrid(x0,y0);
-[xx,yy] = meshgrid(x,y);
 end

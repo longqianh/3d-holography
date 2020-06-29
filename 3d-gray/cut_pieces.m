@@ -1,11 +1,8 @@
 % input:number of slices n
-% cut pieces and return n
+% cut pieces
 
-function cut_pieces(n)
-slices=n; % number of slices
+function cut_pieces(model,slices)
 
-% model=pcread('.datas/x-wing.ply');
-model = load('../datas/bunny.txt');
 %sort by z coordinate
 % ver=sortrows(model.Location,3);
 ver=sortrows(model,3);
@@ -35,7 +32,7 @@ for i = 1:length(z1)
         xy=ver(ver(:,3)>z1(i),1:2);
     end
     
-    scatter(xy(:,1),xy(:,2),9,'w','filled'); % scatter VS plot sz=9 
+    scatter(xy(:,1),xy(:,2),10,'w','filled'); % scatter VS plot sz=9 
     axis equal;
     axis([XMIN XMAX YMIN YMAX]) 
     axis off;
