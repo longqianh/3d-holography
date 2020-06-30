@@ -14,10 +14,8 @@ n = 1:N;
 m = 1:M;
 
 % diffraction plane points
-dx0=pix;
-dy0=pix;
-x0 = ((m-1)/m-0.5)*dx0;
-y0 = ((n-1)/n-0.5)*dy0;
+x0 = ((m-1)/M-0.5)*LM;
+y0 = ((n-1)/N-0.5)*LN;
 [xx0,yy0] = meshgrid(x0,y0);
 
 % calculate 3d holography for the given channel
@@ -31,10 +29,11 @@ switch channel
 end
 
 % generate observation plane points
-dx=lambda*z0/LM;
-dy=lambda*z0/LN;
-x = ((m-1)/m-0.5)*dx;
-y = ((n-1)/n-0.5)*dy;
+% here we ignore the small difference of z and z0 to improve calculating speed
+% later on we can take into account
+L=lambda*z0/pix;
+x = ((m-1)/M-0.5)*L;
+y = ((n-1)/N-0.5)*L;
 [xx,yy] = meshgrid(x,y);
 
 cutted=1;
@@ -64,20 +63,22 @@ U_pics=cell(slices,1);
 iter_num=20;
 
 for iter=1:iter_num  % GS iteration 
-    if iter>1
-        abs(U_slm(1,1:10))
-    end
+%     if iter>1
+%         abs(U_slm(1,1:10))
+%     end
     U_slm=zeros(N,M);
     for i=1:slices
         U_slms{i}=s_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
         U_slm=U_slm+U_slms{i};% complex applitudes superposition       
     end
-    if iter==iter_num
-        PhaseGraph=uint8(angle(U_slm)/2/pi*255);
-        imwrite(PhaseGraph,['phase-only-img-c' ,' ch',num2str(channel), '.bmp'] );
-    end
+%     if iter==iter_num
+%         PhaseGraph=uint8(angle(U_slm)/2/pi*255);
+%         imwrite(PhaseGraph,['phase-only-img-c' ,' ch',num2str(channel), '.bmp'] );
+%     end
     
-    phase=angle(U_slm);
+    phase=angle(U_slm)+pi;
+    
+    
     for i=1:slices
         U_pics{i}=i_fft(exp(1i.*phase),M,N,lambda,z(i),xx0,yy0,xx,yy); % z(i) takes depth into account
         U0{i}=A0{i}.*exp(1i*angle(U_pics{i}));
