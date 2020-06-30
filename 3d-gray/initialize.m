@@ -13,15 +13,14 @@ function [U0,A0,xx0,yy0,xx,yy]=initialize(XY0,M,N,m0,lambda,z0,pix)
 
 n = 1:N;
 m = 1:M;
-dx0=pix;
-dy0=pix;
-dx=lambda*z0/(M*pix);
-dy=lambda*z0/(N*pix);
+LM=pix*M;
+LN=pix*N;
+L=lambda*z0/pix;
 
-x0 = ((m-1)/m-0.5)*dx0;
-y0 = ((n-1)/n-0.5)*dy0;
-x = ((m-1)/m-0.5)*dx;
-y = ((n-1)/n-0.5)*dy;
+x0 = ((m-1)/m-0.5)*LM;
+y0 = ((n-1)/n-0.5)*LN;
+x = ((m-1)/m-0.5)*L;
+y = ((n-1)/n-0.5)*L;
 
 
 [xx0,yy0] = meshgrid(x0,y0);
