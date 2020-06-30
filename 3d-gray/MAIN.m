@@ -14,7 +14,6 @@ iter_num=20;     % number of iterations
 model = load('../datas/bunny.txt');
 
 
-
 %  cut pieces
 cut_pieces(model,slices); 
 
@@ -32,13 +31,14 @@ U_pics=cell(slices,1);
 PhaseGraphs=cell(slices,1);
 times=(iter_num+1)*slices;
 
-for iter=1:iter_num+1  % GS iteration ?
+for iter=1:iter_num+1  
     U_slm=zeros(N,M);
     for i=1:slices
         U_slms{i}=s_fft(M,N,lambda,z(i),xx0,yy0,xx,yy,U0{i});
         U_slm=U_slm+U_slms{i};% complex applitudes superposition 
         
     end
+    abs(U_slm)
     Phase_slm=angle(U_slm)+pi;% takeout angle to get pahse graph, angle is range from -pi to pi
     
     for i=1:slices
@@ -55,8 +55,8 @@ imwrite(Ih,'phase-only-img.bmp');%../holo-graph/holo-graph
 
 
 brightness=3;
-pic_num=1;
-res=brightness*abs(U_pics{pic-num})/max(max(abs(U_pics{pic_num}))); 
+pic_num=i;
+res=brightness*abs(U_pics{pic_num})/max(max(abs(U_pics{pic_num}))); 
 res=imresize(res,[1000 1000]);
 figure;
 imshow(res);
