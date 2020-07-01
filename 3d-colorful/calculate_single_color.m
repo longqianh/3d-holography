@@ -71,10 +71,10 @@ for iter=1:iter_num  % GS iteration
         U_slms{i}=s_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
         U_slm=U_slm+U_slms{i};% complex applitudes superposition       
     end
-%     if iter==iter_num
-%         PhaseGraph=uint8(angle(U_slm)/2/pi*255);
-%         imwrite(PhaseGraph,['phase-only-img-c' ,' ch',num2str(channel), '.bmp'] );
-%     end
+    if iter==iter_num
+        PhaseGraph=uint8(angle(U_slm)/2/pi*255);
+        imwrite(PhaseGraph,['phase-only-img-c' ,' ch',num2str(channel), '.bmp'] );
+    end
     
     phase=angle(U_slm)+pi;
     
