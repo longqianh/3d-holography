@@ -1,7 +1,7 @@
 function cut_pieces(model,slices)
 
 % Cut pieces from 3-D objects.
-% INPUT: number of slices n
+% INPUT: number of slices -- n
 % OUT: write images of slices into tmp file
 
 
@@ -32,7 +32,7 @@ for i = 1:length(z1)
     end
 %     color=rand(length(xy(:,1)),3);
 %     scatter(xy(:,1),xy(:,2),10,color,'filled'); 
-    scatter(xy(:,1),xy(:,2),10,'white','filled'); 
+    scatter(xy(:,1),xy(:,2),4,'white','filled');  
     axis equal;
     axis([XMIN XMAX YMIN YMAX]) 
     axis off;

@@ -1,7 +1,7 @@
 clear;clc;clf;
 %  parameters 
 M = 1920; N = 1080; % slm resolution: horizontal and vertical pixels
-slices=100; % number of slices
+slices=50; % number of slices
 m0 = 0.5 ;  % image zoom factor: to prevent image superposition
 lambda=532e-6; % wavelength of the light , 532nm = 532e-6 mm for green light
 z0 = 800;  %distance between the defracted plane and observation screen / mm
@@ -14,21 +14,14 @@ z=(1:slices)/slices*depth+z0; % different diffraction distance because of the de
 %  load data
 model = load('../datas/bunny.txt');
 
-
 %  cut pieces and get the slices
 cutted=0;
 if cutted==0
     cut_pieces(model,slices); 
 end
 
-%pack the slices 
-XY0=cell(slices,1); 
-for i=1:slices
-    XY0{i} = imread(['../tmp/' num2str(i) '.jpg']);
-end
-
 %  resize the slices and add random phase on each slice
-[U0,A0,xx0,yy0,xx,yy]=initialize(XY0,M,N,m0,lambda,z0,pix);
+[U0,A0,xx0,yy0,xx,yy]=initialize(slices,M,N,m0,lambda,z0,pix);
 
 U_slms=cell(slices,1);
 U_pics=cell(slices,1);
@@ -40,12 +33,12 @@ for iter=1:iter_times
         U_slms{i}=s_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
         U_slm=U_slm+U_slms{i};% complex applitudes superposition 
     end
-    abs(U_slm)
+
     phase=angle(U_slm)+pi;% takeout angle to get pahse graph, angle is range from -pi to pi
     
     for i=1:slices
-        U_pics{i}=i_fft(exp(1i.*(phase)),M,N,lambda,z(i),xx0,yy0,xx,yy);
-        U0{i}=A0{i}.*exp(1i*(angle(U_pics{i})+pi));
+        U_pics{i}=i_fft(exp(1i.*(phase-pi)),M,N,lambda,z(i),xx0,yy0,xx,yy);
+        U0{i}=A0{i}.*exp(1i*(angle(U_pics{i}))); %+pi?
         
     end
     disp(iter/iter_times);
@@ -56,8 +49,8 @@ PhaseGraph=uint8(phase/2/pi*255);
 imwrite(PhaseGraph,'phase-only-img.bmp');%../holo-graph/holo-graph
 
 
-brightness=3;
 
+brightness=3;
 pic_num=1;
 simu_res=brightness*abs(U_pics{pic_num})/max(max(abs(U_pics{pic_num}))); 
 simu_res=imresize(simu_res,[1000 1000]);
