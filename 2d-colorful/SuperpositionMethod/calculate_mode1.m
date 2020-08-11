@@ -1,18 +1,12 @@
 function [pic3,pic4]=calculate_mode1(LambdaChoose,Lambda,XRGB,z0,f,random_phase,iter_num,spherical_phase,biphase)
 
-blaze = 1;
-
-m00=0.8;
-
 channels=LambdaChoose{1}+LambdaChoose{2}+LambdaChoose{3};
-
-
 pix= 0.008; 
 M = 1920/channels;          
 N = 1080; 
 LM = M*pix;        
 LN = N*pix;        
-X1 = imresize(XRGB,[N,M]); 
+
  
 n = 1:N;
 m = 1:M;
@@ -20,10 +14,17 @@ x = (m-1)/M*LM-LM/2;       % slm sampling (mm)
 y = (n-1)/N*LN-LN/2;
 [xx,yy] = meshgrid(x,y); 
 
+blaze = 1;
+
+m00=0.8;
+
+
+X1 = imresize(XRGB,[N,M]); 
 Xcolor = cell(3,1);
 Xcolor{1} = X1(:,:,1);
 Xcolor{2} = X1(:,:,2);
 Xcolor{3} = X1(:,:,3);
+
 % grayscale
 if channels==1 
     X1gray = rgb2gray(X1);
@@ -33,7 +34,7 @@ if channels==1
 end
 
 which=1;
-
+returnpic=cell(3,1);
 for j=1:3 %for each channel
    if LambdaChoose{j}  
     lambda = Lambda{j}*1e-6;     
@@ -45,7 +46,7 @@ for j=1:3 %for each channel
     [xx0,yy0] = meshgrid(x0,y0); 
     
     %Lmax=min([L0,z2/f*LN]);
-    Lmax=0.4*1e-3*z0/pix; % 目标像面的大小
+    Lmax=0.4*1e-3*z0/pix; % 目标像面的大小 ？
    
     % if use Biphase Encoding method
     if biphase 
@@ -101,24 +102,26 @@ for j=1:3 %for each channel
     end
     %-----------%
     %双相位   
-        if biphase
-            Uf=Uffinale;
-            Amplitude = abs(Uf); Amax = max(max(Amplitude)); 
-            Phase = angle(Uf); 
-            theta1 = Phase + acos(Amplitude/Amax); 
-            theta2 = Phase - acos(Amplitude/Amax); 
-            [board1,board2] = checkerboard(N,M); 
-            DPH = theta1.^board1 + theta2.^board2; 
-            Phase=mod(DPH+2*pi,2*pi);% Phase  0-2pi
-            Ih=Phase;
-        end
+    if biphase
+        Uf=Uffinale;
+        Amplitude = abs(Uf); Amax = max(max(Amplitude)); 
+        Phase = angle(Uf); 
+
+        theta1 = Phase + acos(Amplitude/Amax); 
+        theta2 = Phase - acos(Amplitude/Amax); 
+
+        [board1,board2] = checkerboard(N,M); 
+        DPH = theta1.^board1 + theta2.^board2; 
+        Phase=mod(DPH+2*pi,2*pi);% Phase  0-2pi
+        Ih=Phase;
+    end
     %----SFFT----%
-        U0=exp(1i*Ih);
-        Fresnel=exp(-1i*k/2/z0*(xx.^2+yy.^2));
-        f2=U0.*Fresnel;
-        Uf=ifft2(f2,N,M)/pix.^2;
-        phase=exp(-1i*k*z0)/(-1i*lambda*z0)*exp(-1i*k/2/z0*(xx0.^2+yy0.^2));
-        Uf=Uf.*phase;
+    U0=exp(1i*Ih);
+    Fresnel=exp(-1i*k/2/z0*(xx.^2+yy.^2));
+    f2=U0.*Fresnel;
+    Uf=ifft2(f2,N,M)/pix.^2;
+    phase=exp(-1i*k*z0)/(-1i*lambda*z0)*exp(-1i*k/2/z0*(xx0.^2+yy0.^2));
+    Uf=Uf.*phase;
     %-----保存纯净还原图------%
     returnpic{j}(1:N1,1:M1)=Uf(N/2-N1/2+1:N/2+N1/2,M/2-M1/2+1:M/2+M1/2);
     returnpic{j}=abs(returnpic{j});

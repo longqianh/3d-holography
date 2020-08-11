@@ -40,16 +40,27 @@ A0=cell(size(U0));
 for i=1:slices
     img = imread(['../tmp/' num2str(i) '.jpg']);
     %  class(img)  % ans = 'uint8'
-    img = double(img); % important !
-    img = imresize(img,[N,M]); %resize the piece 
+%     img = double(img); % important !
+    
+% 1
     img = imresize(img,m0); % zooming
+    img = imresize(img,[N,M]); %resize the piece 
+% ?? 发生了啥
+% 2
+% img = imresize(img,[N,M]); %resize the piece 
+% img = imresize(img,m0); % zooming
+
     [N1,M1] = size(img); % size of the piece after the adjustment
     X = zeros(N,M);
     X(N/2-N1/2+1 : N/2+N1/2, M/2-M1/2+1 : M/2+M1/2) = img; % piece with zero-paddings
-    random_phase = rand(N,M)*2*pi; %add random phase
-    U0{i}=X.*exp(1i.*random_phase); 
-% U0{i}=X; % for debug
+%     random_phase = rand(N,M)*2*pi; %add random phase
+%     U0{i}=double(X).*exp(1i.*random_phase); 
+    U0{i}=X; % for debug
     A0{i}=abs(U0{i});  %inital complex amplitudes for later iterations
+%     if i<10
+%         disp(mean(mean(U0{i})));
+%     end
+    
 end
 
 end

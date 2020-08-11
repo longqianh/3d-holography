@@ -1,13 +1,13 @@
 
-function [pic3,pic4] = calculate_mode2(XRGB,lambda,dist,rd_phase,shuangxiangwei)
+function [pic3,pic4] = calculate_mode2(XRGB,lambda,dist,~,biphase)
 
 XR = XRGB(:,:,1);
 XG = XRGB(:,:,2);
 XB = XRGB(:,:,3);
-RGBmax = [max(max(XR)) max(max(XG)) max(max(XB))];
+% RGBmax = [max(max(XR)) max(max(XG)) max(max(XB))];
 
 %--------------------------参数-----------------------------
-if ~shuangxiangwei
+if ~biphase
     mode=1; %1球面随机相位，2球面双相位
 else
     mode=2;
@@ -68,7 +68,7 @@ URGBf2 = URf2+UGf2+UBf2;
 %-------------------------------------------------%
 Utemp = URf2;
 Phase{1} = angle(Utemp);
- if shuangxiangwei
+ if biphase
  A = abs(Utemp); Amax = max(max(A));
  theta1 = Phase{1} + acos(A/Amax);
  theta2 = Phase{1} - acos(A/Amax);
@@ -79,7 +79,7 @@ Phase_slm{1}=Phase{1};
  
 Utemp = UGf2;
 Phase{2} = angle(Utemp);
- if shuangxiangwei
+ if biphase
  A = abs(Utemp); Amax = max(max(A));
  theta1 = Phase{2} + acos(A/Amax);
  theta2 = Phase{2} - acos(A/Amax);
@@ -90,7 +90,7 @@ Phase_slm{2}=Phase{2};
 
 Utemp = UBf2;
 Phase{3} = angle(Utemp);
- if shuangxiangwei
+ if biphase
  A = abs(Utemp); Amax = max(max(A));
  theta1 = Phase{3} + acos(A/Amax);
  theta2 = Phase{3} - acos(A/Amax);
@@ -101,7 +101,7 @@ Phase_slm{3}=Phase{3};
 
 Utemp = URGBf2;
 Phase{4} = angle(Utemp);
- if shuangxiangwei
+ if biphase
  A = abs(Utemp); Amax = max(max(A));
  theta1 = Phase{4} + acos(A/Amax);
  theta2 = Phase{4} - acos(A/Amax);
@@ -138,7 +138,7 @@ UBf = UBf .* exp(1i*BlazB);
 
 Utemp = URf;
 Phase{1} = angle(Utemp);
- if shuangxiangwei
+ if biphase
  A = abs(Utemp); Amax = max(max(A));
  theta1 = Phase{1} + acos(A/Amax);
  theta2 = Phase{1} - acos(A/Amax);
@@ -148,7 +148,7 @@ Phase{1} = angle(Utemp);
  
 Utemp = UGf;
 Phase{2} = angle(Utemp);
- if shuangxiangwei
+ if biphase
  A = abs(Utemp); Amax = max(max(A));
  theta1 = Phase{2} + acos(A/Amax);
  theta2 = Phase{2} - acos(A/Amax);
@@ -158,7 +158,7 @@ Phase{2} = angle(Utemp);
 
 Utemp = UBf;
 Phase{3} = angle(Utemp);
- if shuangxiangwei
+ if biphase
  A = abs(Utemp); Amax = max(max(A));
  theta1 = Phase{3} + acos(A/Amax);
  theta2 = Phase{3} - acos(A/Amax);
