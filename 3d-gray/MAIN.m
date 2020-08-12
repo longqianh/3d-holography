@@ -8,7 +8,7 @@ z0 = 800;  %distance between the defracted plane and observation screen / mm
 
 depth= 30;  % depth / mm
 pix=0.008;  % unit pixel width / mm
-iter_times=1;     % iteration times
+iter_times=10;     % iteration times
 z=(1:slices)/slices*depth+z0; % different diffraction distance because of the depth of the object
 
 %  load data
@@ -32,34 +32,20 @@ for iter=1:iter_times
     for i=1:slices
 
         U_slms{i}=s_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
-%         if i<10
-%             disp(mean(mean(U_slms{i})));
-%         end
-%         
-        
-        
         U_slm=U_slm+U_slms{i};% complex applitudes superposition 
     end
 
     phase=angle(U_slm)+pi;% takeout angle to get pahse graph, angle is range from -pi to pi
-%     disp(mean(mean(phase))); %3.1415
     for i=1:slices
         U_pics{i}=i_fft(exp(1i.*(phase-pi)),M,N,lambda,z(i),xx0,yy0,xx,yy);
-        U0{i}=A0{i}.*exp(1i*(angle(U_pics{i}))); %+pi?
+        U0{i}=A0{i}.*exp(1i*(angle(U_pics{i}))); 
         
     end
     disp(iter/iter_times);
 end
 
 PhaseGraph=uint8(phase/2/pi*255);
-disp(mean(mean(PhaseGraph)));
+% disp(mean(mean(PhaseGraph))); % for debug
 % [filename,folder] = uiputfile('*.bmp','save graph','holo-graph.bmp');
 imwrite(PhaseGraph,'main.bmp');%../holo-graph/holo-graph
-
 reconstruction(U_pics{1},10,1);
-
-% brightness=3;
-% pic_num=1;
-% simu_res=brightness*abs(U_pics{pic_num})/max(max(abs(U_pics{pic_num}))); 
-% simu_res=imresize(simu_res,[1000 1000]);
-% imshow(simu_res);

@@ -1,6 +1,19 @@
 # Hello Holo 
 
-这是一个3D全息的计算和演示app，通过Matlab编写，2D部分由国中元完成，3D部分由黄隆钤完成。
+这是一个3D全息的计算和演示app，通过Matlab编写，2D部分和3D切片算法由国中元完成，APP的3D部分和旋转算法由黄隆钤完成。
+
+## 文件内容
+
+- 2d-colorful为国中元学长的2D彩色全息内容，已集成到了App-HelloHolo 文件中。
+- 3d-gray大部分为国中元学长完成，我进行了代码的修改和优化，现已集成到了App-HelloHolo文件中
+- App-HelloHolo文件夹为Matlab APP的文件夹，2D界面由国中元学长设计和编写，3D界面由我设计和编写
+- 3d-colorful为3D彩色全息，暂时未完成
+
+
+
+
+
+## APP说明文档
 
 ### 2D-Holography
 
@@ -60,32 +73,7 @@ Mode栏选择空间划分或空间叠加法
 
 - 计算结果
 
-  计算结果为相位全息图，下面是模拟还原图，可以直接保存。
+  计算结果为相位全息图，下面是模拟还原图，可以直接保存。下图为一个计算示例。将相息图加载到空间光调制器（SLM）上，使用对应波长的激光进行照射，在
 
-  ![image-20200809174544761](https://tva1.sinaimg.cn/large/007S8ZIlly1ghkpci0r7pj311t0u0n46.jpg)
-
-
-
-img
-
-```
-3.2312
-
-    5.4095
-
-    6.7851
-
-    6.5842
-
-    6.6679
-
-    6.5740
-
-    6.9905
-
-    7.1656
-
-    7.3291
-```
-
-![image-20200811193215484](https://tva1.sinaimg.cn/large/007S8ZIlly1ghn3n3nf17j31cu0u046v.jpg)
+  ![app-1](https://tva1.sinaimg.cn/large/007S8ZIlly1ghnsla3c28j30qe0l542u.jpg)
+  
