@@ -88,6 +88,10 @@ Mode栏选择空间划分或空间叠加法
 
 
 
+- 3维旋转动态图
+
+  ![image](./datas/bunny-gif.gif)
+
 
 
 ## 后记
