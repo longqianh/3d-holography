@@ -80,11 +80,19 @@ Mode栏选择空间划分或空间叠加法
 
 
 
+- 实验结果
+
+  下图是另一张相息图旋转后照射拍摄的。
+
+  ![res](https://tva1.sinaimg.cn/large/007S8ZIlly1ghr7ds49f4j313z0u0te9.jpg)
+
+
+
 
 
 ## 后记
 
-关于理解全息相息图编码原理的心路历程，我写到了[那里]，欢迎大家一起探讨。
+关于理解全息相息图编码原理的心路历程，我写到了[这里](https://longqianh.com/2020/08/06/Physics-Holography-Road/)，欢迎大家一起探讨。
 
 
 
