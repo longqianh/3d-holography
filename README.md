@@ -77,3 +77,14 @@ Mode栏选择空间划分或空间叠加法
 
   ![app-1](https://tva1.sinaimg.cn/large/007S8ZIlly1ghnsla3c28j30qe0l542u.jpg)
   
+
+
+
+
+
+## 后记
+
+关于理解全息相息图编码原理的心路历程，我写到了[那里]，欢迎大家一起探讨。
+
+
+

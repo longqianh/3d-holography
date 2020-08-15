@@ -1,4 +1,4 @@
-function [pog,rcst_img]=calculate_3dgray(model,lambda,z0,depth,slices,iter_num,sz)
+function [pog,rcst_img]=calculate_3dgray(model,lambda,z0,depth,slices,iter_num)
 
 %  parameters 
 M = 1920; N = 1080; % slm resolution: horizontal and vertical pixels
@@ -6,7 +6,7 @@ m0 = 0.5 ;  % image zoom factor: to prevent image superposition
 pix=0.008;  % unit pixel width / mm
 z=(1:slices)/slices*depth+z0; % different diffraction distance because of the depth of the object
 %  cut pieces and get the slices
-cutted_pieces=cut_pieces(model,slices,sz); 
+cutted_pieces=cut_pieces(model,slices); 
 
 %  resize the slices and add random phase on each slice
 [U0,A0,xx0,yy0,xx,yy]=initialize(cutted_pieces,M,N,m0,lambda,z0,pix);
@@ -44,7 +44,7 @@ for iter=1:iter_num
     d.Message = sprintf("Process: %.2f/1.00",d.Value);
 end
 d.Message="Done.";
-pause(0.5);
+pause(0.2);
 close(d);
 close(f);
 

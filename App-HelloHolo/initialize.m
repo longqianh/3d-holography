@@ -39,14 +39,16 @@ A0=cell(size(U0));
 
 for i=1:slices
     img = cutted_pieces{i};
-    img = imresize(img,m0); % zooming
+%     img = imresize(img,m0); % zooming
+%     img = imresize(img,[N,M]); %resize the piece 
     img = imresize(img,[N,M]); %resize the piece 
+    img = imresize(img,m0); % zooming
     [N1,M1] = size(img); % size of the piece after the adjustment
     X = zeros(N,M);
     X(N/2-N1/2+1 : N/2+N1/2, M/2-M1/2+1 : M/2+M1/2) = img; % piece with zero-paddings
-%     random_phase = rand(N,M)*2*pi; %add random phase
-%     U0{i}=double(X).*exp(1i.*random_phase); 
-    U0{i}=X; % for debug
+    random_phase = rand(N,M)*2*pi; %add random phase
+    U0{i}=double(X).*exp(1i.*random_phase); 
+%     U0{i}=X; % for debug
     A0{i}=abs(U0{i});  %inital complex amplitudes for later iterations
     
 end

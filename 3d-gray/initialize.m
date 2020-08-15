@@ -42,13 +42,8 @@ for i=1:slices
     %  class(img)  % ans = 'uint8'
 %     img = double(img); % important !
     
-% 1
-    img = imresize(img,m0); % zooming
     img = imresize(img,[N,M]); %resize the piece 
-% ?? 发生了啥
-% 2
-% img = imresize(img,[N,M]); %resize the piece 
-% img = imresize(img,m0); % zooming
+    img = imresize(img,m0); % zooming
 
     [N1,M1] = size(img); % size of the piece after the adjustment
     X = zeros(N,M);

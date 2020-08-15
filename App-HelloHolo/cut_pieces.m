@@ -1,4 +1,4 @@
-function cutted_pieces=cut_pieces(model,slices,sz)
+function cutted_pieces=cut_pieces(model,slices)
 
 % Cut pieces from 3-D objects.
 % INPUT: number of slices -- n
@@ -35,7 +35,8 @@ for i = 1:length(z1)
 %     color=rand(length(xy(:,1)),3);
 %     scatter(xy(:,1),xy(:,2),10,color,'filled'); 
     
-    scatter(xy(:,1),xy(:,2),sz,'white','filled');  
+%     scatter(xy(:,1),xy(:,2),sz,'white','filled');  
+    plot(xy(:,1),xy(:,2),'.w');
     axis equal;
     axis([XMIN XMAX YMIN YMAX]) 
     axis off;
