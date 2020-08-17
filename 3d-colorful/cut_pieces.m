@@ -1,10 +1,10 @@
 function cut_pieces(model,slices)
-
+% disp(mean(mean(model)));
 % Cut pieces from 3-D objects.
 % INPUT: number of slices -- n
 % OUT: write images of slices into tmp file
 
-
+% pcshow(model);
 %sort by z coordinate
 ver=sortrows(model,3);
 X=ver(:,1);
@@ -20,9 +20,9 @@ min_z=min(ver(:,3));
 ver(:,3)=ver(:,3)-min_z;
 
 % get z-range of one slice per layer
-ver1=ver(1:floor(num/slices):num,:);
+ver1=ver(1:ceil(num/slices):num,:);
 z1=ver1(:,3);
-
+figure;
 for i = 1:length(z1)
     if i<length(z1) 
      % add all the points whose z within the z-range
@@ -32,7 +32,8 @@ for i = 1:length(z1)
     end
 %     color=rand(length(xy(:,1)),3);
 %     scatter(xy(:,1),xy(:,2),10,color,'filled'); 
-    scatter(xy(:,1),xy(:,2),4,'white','filled');  
+    
+    scatter(xy(:,1),xy(:,2),8,'white','filled');  
     axis equal;
     axis([XMIN XMAX YMIN YMAX]) 
     axis off;

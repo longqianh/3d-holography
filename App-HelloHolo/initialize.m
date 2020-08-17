@@ -50,7 +50,7 @@ for i=1:slices
     U0{i}=double(X).*exp(1i.*random_phase); 
 %     U0{i}=X; % for debug
     A0{i}=abs(U0{i});  %inital complex amplitudes for later iterations
-    
+    % use gpu-array to speed up
 end
 
 end
