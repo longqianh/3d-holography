@@ -21,7 +21,7 @@ if cutted==0
 end
 
 %  resize the slices and add random phase on each slice
-[U0,A0,xx0,yy0,xx,yy]=initialize(slices,M,N,m0,lambda,z0,pix); 
+[U0,A0,xx0,yy0,xx,yy]=initialize_ec2(slices,M,N,m0,lambda,z0,pix); 
 
 U_slms=cell(slices,1);
 U_pics=cell(slices,1);
@@ -31,13 +31,13 @@ for iter=1:iter_times
     U_slm=zeros(N,M);
     for i=1:slices
 
-        U_slms{i}=s_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
+        U_slms{i}=i_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
         U_slm=U_slm+U_slms{i};% complex applitudes superposition 
     end
 
     phase=angle(U_slm)+pi;% takeout angle to get pahse graph, angle is range from -pi to pi
     for i=1:slices
-        U_pics{i}=i_fft(exp(1i.*(phase-pi)),M,N,lambda,z(i),xx0,yy0,xx,yy);
+        U_pics{i}=s_fft(exp(1i.*(phase-pi)),M,N,lambda,z(i),xx0,yy0,xx,yy);
         U0{i}=A0{i}.*exp(1i*(angle(U_pics{i}))); 
         
     end

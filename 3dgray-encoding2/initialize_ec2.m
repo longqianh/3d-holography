@@ -1,5 +1,6 @@
-function [U0,A0,xx0,yy0,xx,yy]=initialize(slices,M,N,m0,lambda,z0,pix)
+function [U0,A0,xx0,yy0,xx,yy]=initialize_ec2(slices,M,N,m0,lambda,z0,pix)
 
+% another encoding method
 % Initialize plane points and get slices' amplitudes
 % --------
 % INPUT
@@ -25,10 +26,11 @@ L=lambda*z0/pix;
 
 
 % from the observation plane do Fresnel diffraction integral to slm
-x0 = ((m-1)/M-0.5)*L;
-y0 = ((n-1)/N-0.5)*L;
-x = ((m-1)/M-0.5)*LM;
-y = ((n-1)/N-0.5)*LN;
+x = ((m-1)/M-0.5)*L;
+y = ((n-1)/N-0.5)*L;
+x0 = ((m-1)/M-0.5)*LM;
+y0 = ((n-1)/N-0.5)*LN;
+
 
 [xx0,yy0] = meshgrid(x0,y0);
 [xx,yy] = meshgrid(x,y);
