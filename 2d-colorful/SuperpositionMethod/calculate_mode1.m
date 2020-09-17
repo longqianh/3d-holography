@@ -46,7 +46,7 @@ for j=1:3 %for each channel
     [xx0,yy0] = meshgrid(x0,y0); 
     
     %Lmax=min([L0,z2/f*LN]);
-    Lmax=0.4*1e-3*z0/pix; % 目标像面的大小 ？
+    Lmax=0.4*1e-3*z0/pix; % 目标像面的最大值 
    
     % if use Biphase Encoding method
     if biphase 

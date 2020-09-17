@@ -30,7 +30,6 @@ U_pics=cell(slices,1);
 for iter=1:iter_times
     U_slm=zeros(N,M);
     for i=1:slices
-
         tmp=s_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
         U_slm=U_slm+tmp;% complex applitudes superposition 
     end
@@ -39,7 +38,6 @@ for iter=1:iter_times
     for i=1:slices
         tmp=i_fft(exp(1i.*(phase-pi)),M,N,lambda,z(i),xx0,yy0,xx,yy);
         U0{i}=A0{i}.*exp(1i*(angle(tmp))); 
-        
     end
     disp(iter/iter_times);
 end
