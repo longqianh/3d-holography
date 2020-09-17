@@ -45,11 +45,11 @@ Mode栏选择空间划分或空间叠加法
 
   注：文件—>保存目前只支持2D全息图的保存，3D全息图的保存请直接点击大大的按钮。
 
-<img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ghkp16h56tj31290u0jty.jpg" alt="image-20200809173434383" style="zoom:80%;" />
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlly1giu4tfwtnbj31290u0jty.jpg" alt="image-20200809173434383" style="zoom:80%;" />
 
 
 
-![image-20200809174844361](https://tva1.sinaimg.cn/large/007S8ZIlly1ghkpeyrfm4j311h0u044i.jpg)
+![image-20200809174844361](https://tva1.sinaimg.cn/large/007S8ZIlly1giu4thfkw6j311h0u044i.jpg)
 
 - 选择计算波长。
 
@@ -67,7 +67,7 @@ Mode栏选择空间划分或空间叠加法
 
   点击“计算”按钮后将进行相位全息图和模拟还原图的计算，有进度条提升，请耐心等待。
 
-  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ghkpafwihcj30us0oaq3j.jpg" alt="image-20200809174421785" style="zoom:80%;" />
+  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1giu4tm8bobj30us0oaq3j.jpg" alt="image-20200809174421785" style="zoom:80%;" />
 
 
 
@@ -75,7 +75,7 @@ Mode栏选择空间划分或空间叠加法
 
   计算结果为相位全息图，下面是模拟还原图，可以直接保存。下图为一个计算示例。将相息图加载到空间光调制器（SLM）上，使用对应波长的激光进行照射，在
 
-  ![app-1](https://tva1.sinaimg.cn/large/007S8ZIlly1ghnsla3c28j30qe0l542u.jpg)
+  ![app-1](https://tva1.sinaimg.cn/large/007S8ZIlly1giu4tog3imj30qe0l541j.jpg)
   
 
 
