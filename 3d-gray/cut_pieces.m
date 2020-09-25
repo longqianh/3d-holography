@@ -44,6 +44,6 @@ for i = 1:length(z1)
     imwrite(f, ['../tmp/' num2str(i) '.jpg']);
     
 end
-    pause(0.1);
-    close;
+%     pause(0.1);
+    close all; 
 end

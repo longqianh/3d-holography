@@ -10,7 +10,7 @@ depth= 30;  % depth / mm
 pix=0.008;  % unit pixel width / mm
 iter_times=1;     % iteration times % NOTE it seems that no iteration would be better
 z=(1:slices)/slices*depth+z0; % different diffraction distance because of the depth of the object
-
+L=lambda.*z/pix; % 观察面总长
 %  load data
 model = load('../datas/bunny.txt');
 
@@ -21,22 +21,22 @@ if cutted==0
 end
 
 %  resize the slices and add random phase on each slice
-[U0,A0,xx0,yy0,xx,yy]=initialize(slices,M,N,m0,lambda,z0,pix); 
+[U0,A0,xx0s,yy0s,xx,yy]=initialize(slices,M,N,m0,L,pix); 
 
 % U_slms=cell(slices,1);
-U_pics=cell(slices,1);
+% U_pics=cell(slices,1);
 
 % GS iteration
 for iter=1:iter_times
     U_slm=zeros(N,M);
     for i=1:slices
-        tmp=s_fft(U0{i},M,N,lambda,z(i),xx0,yy0,xx,yy);
+        tmp=s_fft(U0{i},M,N,lambda,z(i),xx0s{i},yy0s{i},xx,yy);
         U_slm=U_slm+tmp;% complex applitudes superposition 
     end
 
     phase=angle(U_slm)+pi;% takeout angle to get pahse graph, angle is range from -pi to pi
     for i=1:slices
-        tmp=i_fft(exp(1i.*(phase-pi)),M,N,lambda,z(i),xx0,yy0,xx,yy);
+        tmp=i_fft(exp(1i.*(phase-pi)),M,N,lambda,z(i),xx0s{i},yy0s{i},xx,yy);
         U0{i}=A0{i}.*exp(1i*(angle(tmp))); 
     end
     disp(iter/iter_times);

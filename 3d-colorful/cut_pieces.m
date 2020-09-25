@@ -23,27 +23,26 @@ ver1=ver(1:ceil(num/slices):num,:);
 z1=ver1(:,3);
 figure;
 
-for k=1:3
+
 for i = 1:length(z1)
     if i<length(z1) 
      % add all the points whose z within the z-range
-        xy=ver(ver(:,3)>z1(i)&ver(:,3)<z1(i+1),[1:2,k]); 
+        xy=ver(ver(:,3)>z1(i)&ver(:,3)<z1(i+1),[1:2,4:6]); 
         
     else % the last z-range
-        xy=ver(ver(:,3)>z1(i),[1:2,k]);
+        xy=ver(ver(:,3)>z1(i),[1:2,4:6]);
     end
     
-    scatter(xy(:,1),xy(:,2),8,xy(:,3),'filled');  
+    scatter(xy(:,1),xy(:,2),8,xy(:,3:5),'filled');  
     axis equal;
     axis([XMIN XMAX YMIN YMAX]) 
     axis off;
     set(gcf, 'Color', 'black');
     f = getframe(gca);
     f = frame2im(f); 
-    f = rgb2gray(f);
-    imwrite(f, ['../tmp/' num2str(k) num2str(i) '.jpg']);
+%     f = rgb2gray(f);
+    imwrite(f, ['./tmp/' num2str(i) '.jpg']);
 
-end
 end
     pause(0.1);
     close;
