@@ -49,7 +49,7 @@ yy0s=cell(3,slices,1);
                 img = imread(['./tmp/' num2str(i) '.jpg']);
                 img=img(:,:,k); % take k's channel out
                 img = imresize(img,[N,M]); %resize the piece 
-%                 img = imresize(img,[N,M/3]); %resize the piece 
+                imshow(img);
                 img = imresize(img,m0(i)); % zooming automatically
                 [N1,M1] = size(img); % size of the piece after the adjustment
                 X = zeros(N,M);

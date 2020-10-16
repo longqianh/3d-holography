@@ -9,7 +9,7 @@ model = load(modelpath);
 % model=model(:,1:3);
 % pcshow(model,mcolor);
 iter_num=1;
-M = 1920; N = 1080; % slm resolution: horizontal and vertical pixels
+M = 1920/3; N = 1080; % slm resolution: horizontal and vertical pixels
 slices=10;
 z0=700;
 depth= 30;  % depth / mm
@@ -29,8 +29,9 @@ cut_pieces(model,mcolor,slices);
 [U0,xx0s,yy0s,xx,yy]=initialize(slices,M,N,L,pix); 
 
 % GS iteration
-pog=zeros(N,M);
+pog=zeros(N,M*3);
 rcst=cell(3,1);
+
 
 for k = 1:3
     
@@ -58,7 +59,7 @@ for k = 1:3
 %         disp(iter*k/(iter_times*k));
     end
     
-    pog(:,1+M*(k-1)/3:M*k/3)=phase(:,1+M*(k-1)/3:M*k/3);
+    pog(:,1+M*(k-1):M*k)=phase; % (1+(M*3)*(k-1)/3:(M*3)*k/3)
     disp(k/3);
 end
 pog=uint8(pog/2/pi*255);

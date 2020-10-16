@@ -48,7 +48,7 @@ for i = 1:length(z1)
 
 end
 
-close;
+close all;
 for i=1:slices
     cutted_pieces{i}=imread(['./' num2str(i) '.jpg']);
     delete(['./' num2str(i) '.jpg']);
