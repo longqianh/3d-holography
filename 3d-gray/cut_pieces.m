@@ -25,7 +25,7 @@ z1=ver1(:,3);
 
 figure; % bug fixed
 
-for i = 1:length(z1)
+parfor i = 1:length(z1)
     if i<length(z1) 
      % add all the points whose z within the z-range
         xy=ver(ver(:,3)>z1(i)&ver(:,3)<z1(i+1),1:2);   
@@ -49,7 +49,7 @@ for i = 1:length(z1)
 end
 
 close all;
-for i=1:slices
+parfor i=1:slices
     cutted_pieces{i}=imread(['./' num2str(i) '.jpg']);
     delete(['./' num2str(i) '.jpg']);
     
