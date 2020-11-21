@@ -23,7 +23,7 @@ ver(:,3)=ver(:,3)-min_z;
 ver1=ver(1:ceil(num/slices):num,:); % ver1=ver(1:floor(num/slices):num,:);
 z1=ver1(:,3);
 
-figure; % 大 BUG ！！！
+figure; % bug fixed
 
 for i = 1:length(z1)
     if i<length(z1) 

@@ -12,12 +12,12 @@ cutted_pieces=cut_pieces(model,slices);
 %  resize the slices and add random phase on each slice
 [U0,A0,xx0s,yy0s,xx,yy]=initialize(cutted_pieces,M,N,m0,L,pix);
 
-
-
 f = uifigure;
 d = uiprogressdlg(f,'Title','Calculating Phase Only Graph',...
         'Message','Please wait...','Cancelable','on');
     
+% planex=-M/2:M/2-1;
+
     % GS iteration
 for iter=1:iter_num
      if d.CancelRequested
@@ -29,9 +29,10 @@ for iter=1:iter_num
         U_slm=U_slm+tmp;% complex applitudes superposition 
     end
 
-    phase=angle(U_slm)+pi;% takeout angle to get pahse graph, angle is range from -pi to pi
+    phase=angle(U_slm);% takeout angle to get pahse graph, angle is range from -pi to pi
+%     phase=mod(phase+pi.*planex,2*pi);
     for i=1:slices
-        tmp=i_fft(exp(1i.*(phase-pi)),M,N,lambda,z(i),xx0s{i},yy0s{i},xx,yy);
+        tmp=i_fft(exp(1i.*phase),M,N,lambda,z(i),xx0s{i},yy0s{i},xx,yy);
         U0{i}=A0{i}.*exp(1i*(angle(tmp))); 
     end
   
@@ -41,6 +42,41 @@ for iter=1:iter_num
   
    
 end
+% 
+% eps=1;
+% tmp=zeros(slices,1); % tmp phase
+% while eps<0.001
+%      if d.CancelRequested
+%             break
+%     end
+% 
+%     
+%     eps=0;
+%     for i=1:slices
+%         tmp(i)=angle(s_fft(U0{i},M,N,lambda,z(i),xx0s{i},yy0s{i},xx,yy));
+%         Uideal=i_fft(exp(1i.*(tmp(i)-pi)),M,N,lambda,z(i),xx0s{i},yy0s{i},xx,yy);
+%         tmp(i)=angle(Uideal);
+%         U0{i}=A0{i}.*exp(1i*(angle(tmp(i)))); 
+%         eps=eps+abs(A0{i}-abs(Uideal));
+%     end
+% %     eps
+% 
+% %     phase=angle(U_slm)+pi;% takeout angle to get pahse graph, angle is range from -pi to pi
+%        
+%   
+%    d.Value=iter/iter_num;
+%    d.Message = sprintf("Process: %.2f/1.00",d.Value);
+%    disp(d.Value);
+%   
+%    
+% end
+
+% U_slm=zeros(N,M);
+% for i=1:slices
+%     U_slm=U_slm+s_fft(U0{i},M,N,lambda,z(i),xx0s{i},yy0s{i},xx,yy);
+% end
+% phase=angle(U_slm);
+
 
 d.Message="Done.";
 pause(0.2);

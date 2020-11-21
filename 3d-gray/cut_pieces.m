@@ -1,11 +1,11 @@
-function cut_pieces(model,slices)
-% disp(mean(mean(model)));
+function cutted_pieces=cut_pieces(model,slices)
+
 % Cut pieces from 3-D objects.
 % INPUT: number of slices -- n
 % OUT: write images of slices into tmp file
 
-% pcshow(model);
 %sort by z coordinate
+cutted_pieces=cell(slices,1);
 ver=sortrows(model,3);
 X=ver(:,1);
 Y=ver(:,2);
@@ -20,9 +20,11 @@ min_z=min(ver(:,3));
 ver(:,3)=ver(:,3)-min_z;
 
 % get z-range of one slice per layer
-ver1=ver(1:ceil(num/slices):num,:);
+ver1=ver(1:ceil(num/slices):num,:); % ver1=ver(1:floor(num/slices):num,:);
 z1=ver1(:,3);
-figure;
+
+figure; % bug fixed
+
 for i = 1:length(z1)
     if i<length(z1) 
      % add all the points whose z within the z-range
@@ -33,17 +35,24 @@ for i = 1:length(z1)
 %     color=rand(length(xy(:,1)),3);
 %     scatter(xy(:,1),xy(:,2),10,color,'filled'); 
     
-    scatter(xy(:,1),xy(:,2),8,'white','filled');  
+%     scatter(xy(:,1),xy(:,2),sz,'white','filled');  
+    plot(xy(:,1),xy(:,2),'.w');
     axis equal;
     axis([XMIN XMAX YMIN YMAX]) 
     axis off;
     set(gcf, 'Color', 'black');
-    f = getframe(gca);
-    f = frame2im(f); 
-    f = rgb2gray(f);
-    imwrite(f, ['../tmp/' num2str(i) '.jpg']);
+    frame = getframe(gca);
+    frame = frame2im(frame); 
+    frame = rgb2gray(frame);
+    imwrite(frame, ['./' num2str(i) '.jpg']);
+
+end
+
+close all;
+for i=1:slices
+    cutted_pieces{i}=imread(['./' num2str(i) '.jpg']);
+    delete(['./' num2str(i) '.jpg']);
     
 end
-%     pause(0.1);
-    close all; 
+
 end

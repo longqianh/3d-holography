@@ -17,6 +17,6 @@ function U=s_fft(U0,M,N,lambda,z,xx0,yy0,xx,yy)
 % U: complex amplitudes on the observation screen after s-fft
 
     k = 2*pi/lambda;
-    U = fftshift ( fft2 ( U0.*( exp(1i*k/2/z*(xx0.^2+yy0.^2)) ) ,N,M ) ); % add fftshift
+    U = fft2 ( U0.*( exp(1i*k/2/z*(xx0.^2+yy0.^2)) ) ,N,M ) ; 
     U =  ( exp(1i*k*z) / (1i*lambda*z) * exp(1i*k/2/z*(xx.^2+yy.^2) ) ) .* U;
 end

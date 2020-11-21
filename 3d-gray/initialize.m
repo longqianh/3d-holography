@@ -1,4 +1,4 @@
-function [U0,A0,xx0s,yy0s,xx,yy]=initialize(slices,M,N,m0,L,pix)
+function [U0,A0,xx0s,yy0s,xx,yy]=initialize(cutted_pieces,M,N,m0,L,pix)
 
 % Initialize plane points and get slices' amplitudes
 % --------
@@ -16,7 +16,7 @@ function [U0,A0,xx0s,yy0s,xx,yy]=initialize(slices,M,N,m0,L,pix)
 % xx0,yy0: pixel points on the diffraction plane 
 % xx,yy: pixel points on the observation plane
 
-
+slices=length(cutted_pieces);
 n = 1:N;
 m = 1:M;
 LM=pix*M;
@@ -37,16 +37,14 @@ A0=cell(size(U0));
 
 xx0s=cell(slices,1);
 yy0s=cell(slices,1);
-for i=1:slices
+parfor i=1:slices
     x0 = ((m-1)/M-0.5)*L(i);
     y0 = ((n-1)/N-0.5)*L(i);
     [xx0,yy0] = meshgrid(x0,y0);
     xx0s{i}=xx0;
     yy0s{i}=yy0;
-    img = imread(['../tmp/' num2str(i) '.jpg']);
-    %  class(img)  % ans = 'uint8'
-%     img = double(img); % important !
-    
+    img=cutted_pieces{i};
+    %img = imread(['../tmp/' num2str(i) '.jpg']);
     img = imresize(img,[N,M]); %resize the piece 
     img = imresize(img,m0); % zooming
 

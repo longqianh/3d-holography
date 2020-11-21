@@ -1,10 +1,8 @@
 
 
-*.jpg
 *.ply
-
-datas/Cactus.txt
-datas/Block.txt
+*.txt
 *.xyz
 *.bmp
-App-HelloHolo.zip
+3d-colorful/
+datas/
