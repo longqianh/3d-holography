@@ -16,9 +16,5 @@
 - Holographs：已制作的效果较好的相息图和相息图序列
 - results：显示效果
 
-## 后记
-
-关于理解全息原理的心路历程，我写到了[这里](https://longqianh.com/2020/08/06/Physics-Holography-Road/)，欢迎大家一起探讨。
-
 
 
